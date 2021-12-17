@@ -28,11 +28,22 @@ public class LicenseService {
         return license;
     }
 
-    public String createLicense(License license, String organizationId, Locale locale){
+    public String deleteLicense(String licenseId, String organizationId){
         String responseMessage = null;
-        if(!StringUtils.isEmpty(license)) {
+        responseMessage = String.format(messages.getMessage("license.delete.message", null, null),licenseId, organizationId);
+        return responseMessage;
+
+    }
+
+    public String createLicense(License license,
+                                String organizationId,
+                                Locale locale){
+        String responseMessage = null;
+        if (license != null) {
             license.setOrganizationId(organizationId);
-            responseMessage = String.format(messages.getMessage("license.create.message",null,locale), license.toString());
+            responseMessage = String.format(messages.getMessage(
+                    "license.create.message", null,locale),
+                    license.toString());
         }
 
         return responseMessage;
@@ -40,18 +51,13 @@ public class LicenseService {
 
     public String updateLicense(License license, String organizationId){
         String responseMessage = null;
-        if(!StringUtils.isEmpty(license)) {
+        if (license != null) {
             license.setOrganizationId(organizationId);
-            responseMessage = String.format(messages.getMessage("license.update.message", null, null), license.toString());
+            responseMessage = String.format(messages.getMessage(
+                    "license.update.message", null, null),
+                    license.toString());
         }
 
         return responseMessage;
-    }
-
-    public String deleteLicense(String licenseId, String organizationId){
-        String responseMessage = null;
-        responseMessage = String.format(messages.getMessage("license.delete.message", null, null),licenseId, organizationId);
-        return responseMessage;
-
     }
 }
